@@ -26,6 +26,18 @@ public class UserController {
         return "about";
     }
 
+    @GetMapping("/signUp")
+    public String signUp(Model model){
+        model.addAttribute("title", "Sign Up");
+        return "signUp";
+    }
+
+    
+    @GetMapping("/login")
+    public String login(Model model){
+        model.addAttribute("title", "Log In");
+        return "logIn";
+    }
 
 
 }
