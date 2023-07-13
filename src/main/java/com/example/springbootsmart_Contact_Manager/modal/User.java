@@ -57,13 +57,6 @@ public class User {
         this.id = id;
     }
 
-    public String getUserName() {
-        return name;
-    }
-
-    public void setUserName(String name) {
-        this.name = name;
-    }
 
     public String getEmail() {
         return email;
@@ -120,19 +113,26 @@ public class User {
         this.contactList = contactList;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", userName='" + name + '\'' +
+                ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", role='" + role + '\'' +
                 ", enabled=" + enabled +
                 ", imgUrl='" + imgUrl + '\'' +
                 ", about='" + about + '\'' +
+                ", contactList=" + contactList +
                 '}';
     }
-
-
 }
