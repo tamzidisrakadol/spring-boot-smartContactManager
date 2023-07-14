@@ -1,6 +1,9 @@
 package com.example.springbootsmart_Contact_Manager.modal;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +14,12 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    private String userName;
+
+    @NotBlank(message = "Username cannot be blank")
+    @Size(min = 3,max = 12,message = "username must from 3 to 12 character")
+    private String name;
+
+    @Email(regexp = "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$", message = "invalid email")
     @Column(unique = true)
     private String email;
     private String password;
@@ -27,9 +35,9 @@ public class User {
     private List<Contact> contactList = new ArrayList<>();
 
 
-    public User(int id, String userName, String email, String password, String role, boolean enabled, String imgUrl, String about) {
+    public User(int id, String name, String email, String password, String role, boolean enabled, String imgUrl, String about) {
         this.id = id;
-        this.userName = userName;
+        this.name = name;
         this.email = email;
         this.password = password;
         this.role = role;
@@ -50,11 +58,11 @@ public class User {
     }
 
     public String getUserName() {
-        return userName;
+        return name;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUserName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {
@@ -116,7 +124,7 @@ public class User {
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", userName='" + userName + '\'' +
+                ", userName='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", role='" + role + '\'' +

@@ -10,7 +10,56 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8 offset-md-2">
-                    <h1>Sign Up</h1>
+                    <div class="my-card m-3">
+                        <h1 class="text-center">Register</h1>
+
+                        <form action="" th:action="@{/do_register}" method="post" th:object="${user}">
+
+                            <div class="form-group">
+
+
+                                <label for="name_field">userName</label>
+                                <input type="text"  
+                                name="name"
+                                class="form-control"  
+                                th:value="${user.name}" 
+                                th:classappend="${#fields.hasErrors('name') ? 'is-invalid' : ''}" 
+                                id="name_field" 
+                                placeholder="UserName"
+                                required>
+
+                                <div th:each="e : ${#fields.errors('name')}" th:text="${e}" id="validationServer03Feedback" class="invalid-feedback">
+                                </div>
+                              </div>
+
+                            
+
+                              <div class="form-group">
+                                <label for="email_field">Email</label>
+                                <input type="text" class="form-control"  name="email" th:value="${user.email}" th:classappend="${#fields.hasErrors('email') ? 'is-invalid' : ''}"  id="email_field" placeholder="Email address" required>
+                                <div th:each="e : ${#fields.errors('email')}" th:text="${e}" id="validationServer03Feedback" class="invalid-feedback"></div>
+                              </div>
+
+                              <div class="form-group">
+                                <label for="pass_field">Password</label>
+                                <input type="password" class="form-control" id="pass_field" placeholder="Password" required>
+                              </div>
+
+                              <div class="form-group">
+                                <textarea placeholder="Tell something about yourself" rows="10" class="form-control"></textarea>
+                              </div>
+
+                              <div class="container text-center">
+                                <button type="submit" class="btn bg-primary text-white">
+                                    Submit
+                                </button>
+                                <button type="reset" class="btn btn-warning">
+                                    Reset
+                                </button>
+                              </div>
+
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
