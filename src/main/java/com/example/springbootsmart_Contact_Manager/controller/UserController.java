@@ -15,10 +15,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
+
 @Controller
 public class UserController {
 
-    @Autowired
+   @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
@@ -33,13 +35,8 @@ public class UserController {
         return "home";
     }
 
-    @GetMapping("/about")
-    public String about(Model model) {
-        model.addAttribute("title", "About");
-        return "about";
-    }
 
-    @GetMapping("/signUp")
+    @GetMapping("/home/signUp")
     public String signUp(Model model) {
         model.addAttribute("title", "Sign Up");
         model.addAttribute("user",new User());
@@ -47,7 +44,13 @@ public class UserController {
     }
 
 
-    @GetMapping("/login")
+    @GetMapping("/home/about")
+    public String about(Model model) {
+        model.addAttribute("title", "About");
+        return "about";
+    }
+
+    @GetMapping("/home/login")
     public String login(Model model) {
         model.addAttribute("title", "Log In");
         return "logIn";
@@ -64,7 +67,8 @@ public class UserController {
         user.setEnabled(true);
         user.setImgUrl("default.png");
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        User result =userRepository.save(user);
+
+        User result = userRepository.save(user);
 
         System.out.println(result);
         return "about";

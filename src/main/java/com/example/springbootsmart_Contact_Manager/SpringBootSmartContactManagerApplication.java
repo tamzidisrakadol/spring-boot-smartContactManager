@@ -11,6 +11,7 @@ public class SpringBootSmartContactManagerApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringBootSmartContactManagerApplication.class, args);
+
 	}
 
 }
