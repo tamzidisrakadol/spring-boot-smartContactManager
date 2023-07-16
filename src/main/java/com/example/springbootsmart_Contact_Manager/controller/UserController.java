@@ -1,11 +1,13 @@
 package com.example.springbootsmart_Contact_Manager.controller;
 
+import com.example.springbootsmart_Contact_Manager.dao.UserRepository;
 import com.example.springbootsmart_Contact_Manager.modal.User;
 import com.example.springbootsmart_Contact_Manager.service.UserService;
 
 import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,6 +17,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class UserController {
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Autowired
+    UserRepository userRepository;
 
     @Autowired
     UserService userService;
@@ -48,11 +56,17 @@ public class UserController {
     @PostMapping("/do_register")
     public String process(@Valid @ModelAttribute("user")User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-
             System.out.println(bindingResult);
             return "signUp";
         }
-        System.out.println(user);
+
+        user.setRole("ROLE_USER");
+        user.setEnabled(true);
+        user.setImgUrl("default.png");
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        User result =userRepository.save(user);
+
+        System.out.println(result);
         return "about";
     }
 
