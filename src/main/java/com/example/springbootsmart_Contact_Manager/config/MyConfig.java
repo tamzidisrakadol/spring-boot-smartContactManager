@@ -52,12 +52,9 @@ public class MyConfig {
                 .anyRequest()
                 .authenticated()
                 .and()
-                .formLogin();
+                .formLogin()
+                .loginPage("/home/login")
+                .defaultSuccessUrl("/home/user/index");
         return httpSecurity.build();
     }
-
-
-
-
-
 }
