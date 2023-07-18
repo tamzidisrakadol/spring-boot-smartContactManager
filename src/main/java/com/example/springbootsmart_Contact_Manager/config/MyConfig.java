@@ -17,6 +17,9 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class MyConfig {
 
+    @Autowired
+    CustomAuthSuccessHandler successHandler;
+
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -38,8 +41,10 @@ public class MyConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity
-                .csrf().disable()
+
+//role based authentication
+
+        httpSecurity.csrf().disable()
                 .authorizeRequests()
                 .requestMatchers("/home/admin/**")
                 .hasRole("ADMIN")
@@ -54,7 +59,9 @@ public class MyConfig {
                 .and()
                 .formLogin()
                 .loginPage("/home/login")
-                .defaultSuccessUrl("/home/user/index");
+                .successHandler(successHandler);
+
         return httpSecurity.build();
     }
+
 }
