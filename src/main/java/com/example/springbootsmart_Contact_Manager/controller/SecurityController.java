@@ -1,5 +1,6 @@
 package com.example.springbootsmart_Contact_Manager.controller;
 
+import com.example.springbootsmart_Contact_Manager.dao.ContactRepo;
 import com.example.springbootsmart_Contact_Manager.dao.UserRepository;
 import com.example.springbootsmart_Contact_Manager.modal.Contact;
 import com.example.springbootsmart_Contact_Manager.modal.User;
@@ -9,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 @RequestMapping("/home")
@@ -16,6 +18,9 @@ public class SecurityController {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    ContactRepo contactRepo;
 
     @ModelAttribute
     public void addCommondata(Model model,Principal principal){
@@ -53,6 +58,18 @@ public class SecurityController {
         emailUserByName.getContactList().add(contact);
         this.userRepository.save(emailUserByName);
         return "normal/addcontact";
+    }
+
+
+    @GetMapping("/user/showContact")
+    public String showContact(Model model,Principal principal){
+        model.addAttribute("title","Show Contact");
+        String email = principal.getName();
+        User emailUser =this.userRepository.getUserByEmail(email);
+        List<Contact> contacts = this.contactRepo.findContactByUser(emailUser.getId());
+        model.addAttribute("contacts", contacts);
+
+        return "normal/showContact";
     }
 
 

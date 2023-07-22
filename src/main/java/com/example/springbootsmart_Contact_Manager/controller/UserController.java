@@ -56,7 +56,7 @@ public class UserController {
         return "logIn";
     }
 
-    @PostMapping("/do_register")
+    @PostMapping("/home/do_register")
     public String process(@Valid @ModelAttribute("user")User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             System.out.println(bindingResult);
