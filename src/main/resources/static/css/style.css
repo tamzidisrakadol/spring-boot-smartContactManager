@@ -137,3 +137,7 @@ body {
     margin-left: 20%;
     padding-left: 15px;
 }
+
+hr.solid {
+    border-top: 3px solid #bbb;
+  }
