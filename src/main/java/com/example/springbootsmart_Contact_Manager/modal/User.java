@@ -31,7 +31,7 @@ public class User {
 
 
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true)
     private List<Contact> contactList = new ArrayList<>();
 
 

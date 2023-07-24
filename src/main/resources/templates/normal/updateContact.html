@@ -9,7 +9,7 @@
     <section>
         <div class="card mr-3">
             <div class="card-body">
-                <h1 class="text-center">Add Contact</h1>
+                <h1 class="text-center">Update Contact</h1>
                 <div class="container-fluid mt-1">
                     <div class="row">
                         <div class="col-md-10 offset-md-1">
@@ -81,7 +81,7 @@
 
                                  <!--description-->
                                 <div class="form-group mt-3">
-                                    <textarea placeholder="Enter description"  name="description" id="description" th:value="${contact.description}" class="form-control" rows="10"></textarea>
+                                    <textarea placeholder="Enter description"  name="description" id="description" th:text="${contact.description}" class="form-control" rows="10"></textarea>
                                 </div>
                                 
 
@@ -93,7 +93,7 @@
 <!--                                </div>-->
 
                                 <div class="container text-center mt-3">
-                                    <button class="btn btn-outline-primary">Add Contact</button>
+                                    <button class="btn btn-outline-primary">Update Contact</button>
                                 </div>
 
                                

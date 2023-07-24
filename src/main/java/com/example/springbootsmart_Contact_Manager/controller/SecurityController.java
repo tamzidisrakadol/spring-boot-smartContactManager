@@ -86,11 +86,37 @@ public class SecurityController {
         Contact contact = cont.get();
         String email = principal.getName();
         User findByEmail =this.userRepository.getUserByEmail(email);
+
+        //checking the right logged-in user
         if(findByEmail.getId()==contact.getUser().getId()){
             model.addAttribute("contact", contact);
         }
         
         return "normal/contactDetail";
+    }
+
+
+    @GetMapping("/user/{cId}/deleteContact")
+    public String deleteContact(@PathVariable("cId")Integer cId, Model model,Principal principal){
+        Contact contact = this.contactRepo.findById(cId).get();
+        
+        String email = principal.getName();
+        User findByEmail =this.userRepository.getUserByEmail(email);
+        if(findByEmail.getId()==contact.getUser().getId()){
+            findByEmail.getContactList().remove(contact);
+            this.userRepository.save(findByEmail);
+        }
+        return "redirect:/home/user/showContact/0";
+    }
+
+
+
+    @RequestMapping("/user/{cId}/updateContact")
+    public String updateContact(@PathVariable("cId")Integer cId, Model model){
+        model.addAttribute("title", "Update Contact");
+        Contact contact = this.contactRepo.findById(cId).get();
+        model.addAttribute("contact", contact);
+        return "normal/updateContact";
     }
 
 
