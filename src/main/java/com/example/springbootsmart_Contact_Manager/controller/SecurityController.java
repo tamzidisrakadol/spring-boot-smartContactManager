@@ -120,4 +120,21 @@ public class SecurityController {
     }
 
 
+    @PostMapping("/user/updating")
+    public String updateContactDetails(@ModelAttribute Contact contact, Principal principal){
+        User user = this.userRepository.getUserByEmail(principal.getName());
+        contact.setUser(user);
+        this.contactRepo.save(contact);
+        return "normal/updateContact";
+    }
+
+
+
+    @GetMapping("/user/profile")
+    public String profile(Model model){
+        model.addAttribute("title", "Profile");
+        return "normal/profile";
+    }
+
+
 }
