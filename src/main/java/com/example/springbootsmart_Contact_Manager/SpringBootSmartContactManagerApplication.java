@@ -1,4 +1,4 @@
-package com.example.springbootsmart_Contact_Manager;
+package com.example.springbootsmart_Contact_Manager; 
 
 import com.example.springbootsmart_Contact_Manager.dao.UserRepository;
 import com.example.springbootsmart_Contact_Manager.modal.User;

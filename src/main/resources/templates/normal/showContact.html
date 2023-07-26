@@ -14,6 +14,16 @@
           Your Contacts
         </h1>
 
+
+        <!---Search bar-->
+        <div class="search-container my-3">
+           <input onclick="search()" id="search-input" type="text" class="form-control" placeholder="Search your contacts">
+           <div class="search-result">
+              
+           </div>
+        </div>
+        
+
         <table class="table">
           <thead>
             <tr>
@@ -25,6 +35,7 @@
             </tr>
           </thead>
           <tbody>
+
             <tr th:each="c:${contacts}">
               <th scope="row" th:text="${c.cId}"></th>
               <td scope="row" th:text="${c.name}"></td>
