@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +26,9 @@ public class SecurityController {
 
     @Autowired
     ContactRepo contactRepo;
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @ModelAttribute
     public void addCommondata(Model model,Principal principal){
@@ -136,5 +140,28 @@ public class SecurityController {
         return "normal/profile";
     }
 
+
+    @GetMapping("/user/setting")
+    public String setting(Model model){
+        model.addAttribute("title", "setting");
+        return "normal/setting";
+    }
+
+
+    @PostMapping("/user/changePassword")
+    public String changePassword(@RequestParam("oldPassword")String oldPassword,@RequestParam("newPassword")String newPassword,Principal principal){
+        String userName = principal.getName();
+        User currentUser=this.userRepository.getUserByEmail(userName);
+
+        if(this.bCryptPasswordEncoder.matches(oldPassword,currentUser.getPassword())){
+            currentUser.setPassword(this.bCryptPasswordEncoder.encode(newPassword));
+            this.userRepository.save(currentUser);
+            System.out.println("Success");
+             return "redirect:/home/user/index";
+        }else{
+            System.out.println("There is something error");
+            return "normal/setting";
+        }
+    }
 
 }
