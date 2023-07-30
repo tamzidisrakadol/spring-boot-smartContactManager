@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+ 
+        <section>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 offset-md-2">
+                        <div class="my-card m-3">
+                            <form method="post" th:action="@{/home/sendOTP}">
+                                <div class="form-group">
+                                  <label for="exampleInputEmail1">Email address</label>
+                                  <input required type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                </div>
+                              <div class="text-center">
+                                <button class="btn btn-warning">Send OTP</button>
+                              </div>
+                              </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    
+
+</body>
+</html>
