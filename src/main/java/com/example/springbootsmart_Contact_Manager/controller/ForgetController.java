@@ -8,6 +8,7 @@ import com.example.springbootsmart_Contact_Manager.modal.User;
 import com.example.springbootsmart_Contact_Manager.service.EmailService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +24,10 @@ public class ForgetController {
 
     @Autowired
     UserRepository userRepository;
+
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @GetMapping("/home/forgot")
     public String openEmailForm(Model Model) {
@@ -73,7 +78,16 @@ public class ForgetController {
             return "verifyOtp";
         }
 
+    }
 
+    @PostMapping("/home/changeNewPass")
+    public String changeNewPassword(@RequestParam("newpassword")String newpassword,HttpSession session){
+        String email =(String)session.getAttribute("email");
+        User user = userRepository.getUserByEmail(email);
+        user.setPassword(bCryptPasswordEncoder.encode(newpassword));
+        this.userRepository.save(user);
+        System.out.println(newpassword +"successfull");
+        return "redirect:/home/login";
     }
 
 }
