@@ -61,3 +61,31 @@ const search = () => {
             });
     }
 }
+
+
+const paymentStart=()=>{
+    console.log("payment Started")
+    let amount = $("#payment_field").val()
+    console.log(amount)   
+    if(amount=="" || amount==null){
+        alert("Amount is required")
+        return
+    }
+
+    $.ajax({
+        url : "/home/user/create_order",
+        data:JSON.stringify({amount:amount,info:'order_request'}),
+        contentType:'application/json',
+        type:'POST',
+        dataType:'json',
+        success:function(response){
+            console.log(response)
+        },
+        error:function(error){
+            console.log(error)
+            alert("Something went wrong") 
+        }
+    })
+    
+}
+
