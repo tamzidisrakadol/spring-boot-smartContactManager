@@ -80,11 +80,44 @@ const paymentStart=()=>{
         dataType:'json',
         success:function(response){
             console.log(response)
+            if(response.status == "created"){
+                let options={
+                    key:'rzp_test_ikSxuKRBygmGpy',
+                    amount:response.amount,
+                    currency:"INR",
+                    name:"AD TECH",
+                    description:"Donation",
+                    image:"",
+                    order_id:response.order_id,
+                    handler:function(response){
+                        console.log(response.razorpay_payment_id)
+                        console.log(response.razorpay_order_id)
+                        console.log(response.razorpay_signature)
+                        console.log("Successfully")
+                    },
+                    prefill:{
+                        "name": "",
+                        "email": "",
+                        "contact": ""
+                        },
+                        theme: {
+                            "color": "#3399cc"
+                            }
+
+                }
+                var rzp1 = new Razorpay(options)
+                rzp1.on('payment.failed', function (response){
+    console.log(response.error.code);
+                    console.log(response.error.description);
+                    console.log(response.error.source);
+                    console.log(response.error.step);
+                    console.log(response.error.reason);
+                    console.log(response.error.metadata.order_id);
+                    console.log(response.error.metadata.payment_id);
+                    })
+            }
         },
-        error:function(error){
-            console.log(error)
-            alert("Something went wrong") 
-        }
+       
     })
     
 }
